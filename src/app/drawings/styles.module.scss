@@ -1,0 +1,17 @@
+.drawings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: rgba(255, 123, 0, 0.87);
+}
+
+.drawings_container {
+  display: flex;
+  column-gap: 10px;
+}

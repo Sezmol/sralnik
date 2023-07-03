@@ -1,0 +1,48 @@
+.home {
+  color: rgb(39, 0, 210);
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-template-areas:
+    'pivo desc desc desc cats'
+    'pivo love blanket progulka cats';
+
+  h1 {
+    font-size: 200px;
+  }
+
+  p {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .pivo {
+    grid-area: pivo;
+  }
+
+  .desc {
+    grid-area: desc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cats {
+    grid-area: cats;
+  }
+
+  .love {
+    grid-area: love;
+  }
+
+  .progulka {
+    grid-area: progulka;
+  }
+
+  .blanket {
+    grid-area: blanket;
+  }
+}

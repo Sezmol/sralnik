@@ -1,0 +1,121 @@
+.music {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .songs {
+    color: white;
+
+    .song {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 10px;
+
+      .stop_song {
+        cursor: pointer;
+      }
+
+      .play_song {
+        cursor: pointer;
+      }
+    }
+  }
+
+  h1 {
+    color: rgb(232, 182, 121);
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .player__wrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    padding: 10px 50px;
+    background-color: rgb(31, 31, 31);
+    width: 100vw;
+
+    .song_name {
+      width: 20%;
+      word-break: break-all;
+      h2 {
+        color: rgb(141, 141, 141);
+        font-size: 18px;
+        line-height: 2;
+      }
+    }
+    .player_n_progress {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0 50px;
+
+      .player {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        margin-bottom: 10px;
+
+        .player_btn {
+          cursor: pointer;
+        }
+
+        .prev_song {
+        }
+
+        .play {
+          margin: 0 10px;
+        }
+
+        .next_song {
+        }
+      }
+
+      .progress__wrapper {
+        cursor: pointer;
+        height: 10px;
+        width: 100%;
+        border-radius: 15px;
+        background-color: rgb(46, 45, 45);
+
+        .progress_bar {
+          cursor: pointer;
+          width: 100%;
+          height: 10px;
+          border-radius: 15px;
+          background-color: grey;
+        }
+      }
+    }
+
+    .volume {
+      width: 20%;
+      display: flex;
+      align-items: center;
+
+      .volumeBar_wrapper {
+        cursor: pointer;
+        width: calc(100% - 60px);
+        height: 10px;
+        border-radius: 15px;
+        background-color: rgb(46, 45, 45);
+
+        .volume_bar {
+          cursor: pointer;
+          width: 100%;
+          height: 10px;
+          border-radius: 15px;
+          background-color: grey;
+        }
+      }
+    }
+  }
+}

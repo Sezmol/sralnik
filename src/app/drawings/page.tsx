@@ -9,6 +9,7 @@ const Drawings = () => {
         <Image src="/draw1.png" alt="drawing" width={400} height={300} />
         <Image src="/draw2.png" alt="drawing" width={400} height={300} />
         <Image src="/draw3.png" alt="drawing" width={400} height={300} />
+        <Image src="/obnimashki.png" alt="drawing" width={400} height={300} />
       </div>
     </div>
   );

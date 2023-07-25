@@ -5,7 +5,7 @@ const Documents = () => {
   return (
     <div className={styles.documents}>
       <h1 className={styles.title}>Documents</h1>
-      <div>
+      <div className={styles.images}>
         <Image
           className={styles.brak}
           src="/brak.png"

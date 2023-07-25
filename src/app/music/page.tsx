@@ -12,15 +12,23 @@ const Music = () => {
   const [currentSong, setCurrentSong] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongName, setCurrentSongName] = useState(allMusic[currentSong]);
-  const audio = useRef(new Audio(`/music/${allMusic[currentSong]}.mp3`));
+  const audio = useRef<HTMLAudioElement | null>(null);
   const progress = useRef<HTMLDivElement>(null);
   const progressWrapper = useRef<HTMLDivElement>(null);
   const volume = useRef<HTMLDivElement>(null);
   const volumeBarWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    audio.current = new Audio(`/music/${allMusic[currentSong]}.mp3`);
     audio.current.addEventListener('timeupdate', songProgress);
     audio.current.addEventListener('ended', nextSong);
+
+    return () => {
+      if (audio.current) {
+        audio.current.removeEventListener('timeupdate', songProgress);
+        audio.current.removeEventListener('ended', nextSong);
+      }
+    };
   }, [audio]);
 
   const nextSong = () => {
@@ -42,58 +50,71 @@ const Music = () => {
   };
 
   const playMusic = () => {
-    audio.current.play();
-    setIsPlaying(true);
+    if (audio.current) {
+      audio.current.play();
+      setIsPlaying(true);
+    }
   };
 
   const stopMusic = () => {
-    audio.current.pause();
-    setIsPlaying(false);
+    if (audio.current) {
+      audio.current.pause();
+      setIsPlaying(false);
+    }
   };
 
   const playSong = (song: string) => {
     setCurrentSong(allMusic.findIndex((value) => value === song));
-    audio.current.src = `/music/${song}.mp3`;
-    console.log(currentSong, song);
-    setCurrentSongName(song);
-    playMusic();
+    if (audio.current) {
+      audio.current.src = `/music/${song}.mp3`;
+      console.log(currentSong, song);
+      setCurrentSongName(song);
+      playMusic();
+    }
   };
 
-  const songProgress = () => {
-    const { duration, currentTime } = audio.current;
-    const progressPercent = (currentTime / duration) * 100;
+  // ...
 
-    if (progress.current) {
-      progress.current.style.width = `${progressPercent}%`;
+  const songProgress = () => {
+    if (audio.current) {
+      const { duration, currentTime } = audio.current;
+      const progressPercent = (currentTime / duration) * 100;
+
+      if (progress.current) {
+        progress.current.style.width = `${progressPercent}%`;
+      }
     }
   };
 
   const changeSongProgress = (e: React.MouseEvent<HTMLDivElement>) => {
-    const progressBar = progress.current;
-    const progressBarWrapper = progressWrapper.current;
+    if (audio.current) {
+      const progressBar = progress.current;
+      const progressBarWrapper = progressWrapper.current;
 
-    if (progressBar && progressBarWrapper) {
-      const clickX = e.clientX - progressBar.getBoundingClientRect().left;
-      const width = progressBarWrapper.clientWidth;
+      if (progressBar && progressBarWrapper) {
+        const clickX = e.clientX - progressBar.getBoundingClientRect().left;
+        const width = progressBarWrapper.clientWidth;
 
-      console.log(clickX, width);
+        console.log(clickX, width);
 
-      audio.current.currentTime = (clickX / width) * audio.current.duration;
+        audio.current.currentTime = (clickX / width) * audio.current.duration;
+      }
     }
   };
 
   const changeVolume = (e: React.MouseEvent<HTMLDivElement>) => {
-    const volumeBar = volume.current;
-    const volumeWrapper = volumeBarWrapper.current;
+    if (audio.current) {
+      const volumeBar = volume.current;
+      const volumeWrapper = volumeBarWrapper.current;
 
-    if (volumeBar && volumeWrapper) {
-      const clickX = e.clientX - volumeBar.getBoundingClientRect().left;
-      const newVolume = clickX / volumeWrapper.clientWidth;
-      volumeBar.style.width = `${newVolume * 100}%`;
-      audio.current.volume = newVolume;
+      if (volumeBar && volumeWrapper) {
+        const clickX = e.clientX - volumeBar.getBoundingClientRect().left;
+        const newVolume = clickX / volumeWrapper.clientWidth;
+        volumeBar.style.width = `${newVolume * 100}%`;
+        audio.current.volume = newVolume;
+      }
     }
   };
-
   return (
     <div className={styles.music}>
       <h1>Music</h1>
